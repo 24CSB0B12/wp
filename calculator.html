@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #d1e7dd;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: black;
+            margin-bottom: 20px;
+        }
+        .calculator {
+            background: black;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .display {
+            background-color:smokewhite;
+            width: 93%;
+            height: 50px;
+color:#003366;
+            font-size: 1.5em;
+            text-align: right;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+font-weight:bold;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        button {
+            padding: 15px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+        }
+        button:focus {
+            outline: 2px solid #ffcc00;
+        }
+        button.operator {
+            background-color: orange;
+            font-size: 1.5em;
+
+
+        }
+        button.clear {
+            background-color: #dc3545;
+        }
+        button.zero {
+            grid-column: span 1;
+        }
+        button.equal {
+            grid-row: span 2;
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CALCULATOR</h1>
+    
+    <div class="calculator" role="region" aria-label="Calculator">
+<input type="text" class="display" aria-label="Calculator display" value="0" readonly>
+        <div class="buttons">
+            <button class="clear">C</button>
+            <button class="operator">/</button>
+            <button class="operator">x</button>
+            <button class="operator">-</button>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button class="operator">+</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button class="operator">%</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button class="equal">=</button>
+            <button>00</button>
+            <button>0</button>
+            <button>.</button>
+        </div>
+    </div>
+
+</body>
+</html>
