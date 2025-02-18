@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #d1e7dd;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: black;
+            margin-bottom: 20px;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        .calculator {
+            background: black;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .display {
+            background-color: white;
+            width: 93%;
+            height: 50px;
+            color: #003366;
+            font-size: 1.5em;
+            text-align: right;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        button {
+            padding: 15px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+        }
+        button:focus {
+            outline: 2px solid #ffcc00;
+        }
+        button.operator {
+            background-color: orange;
+            font-size: 1.5em;
+        }
+        button.clear {
+            background-color: #fe5c04;
+}
+ button.aclear {
+            background-color: red;
+
+        }
+        button.equal {
+            grid-row: span 2;
+            background-color: green;
+        }
+        .recent-calculations {
+            width: 320px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .recent-calculations h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            text-align: center;
+            color: #003366;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+        .recent-calculations ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+        .recent-calculations li {
+            font-size: 1.1em;
+            padding: 8px;
+            border-radius: 5px;
+            background: #f8f9fa;
+            margin-bottom: 5px;
+            transition: background 0.3s;
+        }
+        .recent-calculations li:hover {
+            background: #e2e6ea;
+        }
+        .clear-history {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.1em;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>CALCULATOR</h1>
+    <div class="container">
+        <div class="calculator" role="region" aria-label="Calculator">
+            <input type="text" class="display" id="display" aria-label="Calculator display" value="0" readonly>
+            <div class="buttons">
+                <button class="aclear" onclick="clearDisplay()">AC</button>
+                <button class="operator" onclick="appendValue('/')">/</button>
+                <button class="operator" onclick="appendValue('*')">x</button>
+                <button class="operator" onclick="appendValue('-')">-</button>
+                <button onclick="appendValue('7')">7</button>
+                <button onclick="appendValue('8')">8</button>
+                <button onclick="appendValue('9')">9</button>
+                <button class="operator" onclick="appendValue('+')">+</button>
+                <button onclick="appendValue('4')">4</button>
+                <button onclick="appendValue('5')">5</button>
+                <button onclick="appendValue('6')">6</button>
+                <button class="operator" onclick="appendValue('%')">%</button>
+                <button onclick="appendValue('1')">1</button>
+                <button onclick="appendValue('2')">2</button>
+                <button onclick="appendValue('3')">3</button>
+                <button class="equal" onclick="calculateResult()">=</button>
+                <button onclick="appendValue('.')">.</button>
+                <button onclick="appendValue('0')">0</button>
+
+                <button class="clear" onclick="clearLastDigit()">⌫</button>
+            </div>
+        </div>
+        <div class="recent-calculations">
+            <h2>Recent Calculations</h2>
+            <ul id="history"></ul>
+            <button class="clear-history" onclick="clearHistory()">Clear History</button>
+        </div>
+    </div>
+    <script>
+        let display = document.getElementById("display");
+        let historyList = document.getElementById("history");
+        let history = [];
+
+        function appendValue(value) {
+            if (display.value === "0") {
+                display.value = value;
+            } else {
+                display.value += value;
+            }
+        }
+
+        function clearDisplay() {
+            display.value = "0";
+        }
+
+        function clearLastDigit() {
+            display.value = display.value.slice(0, -1) || "0";
+        }
+
+        function calculateResult() {
+            try {
+                let result = eval(display.value);
+                let calculation = `${display.value} = ${result}`;
+                history.unshift(calculation);
+                if (history.length > 5) {
+                    history.pop();
+                }
+                updateHistory();
+                display.value = result;
+            } catch (error) {
+                display.value = "Error";
+            }
+        }
+
+        function updateHistory() {
+            historyList.innerHTML = history.map(entry => `<li>${entry}</li>`).join('');
+        }
+
+        function clearHistory() {
+            history = [];
+            updateHistory();
+        }
+    </script>
+</body>
+</html>
