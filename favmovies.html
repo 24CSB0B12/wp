@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorite Movies List</title>
+   
+<style>
+ {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+     background-color:pink;
+ background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+}
+
+
+.container {
+    text-align: center;
+    background-color:powderblue;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+
+input[type="text"] {
+    padding: 10px;
+    width: 80%;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+
+li {
+    background-color: #f1f1f1;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.clear{
+background-color:#ff3333;
+ padding: 10px 20px;
+   
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px;
+}
+.clear:hover{
+background-color:red;
+}
+li:hover {
+    background-color: #e0e0e0;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Favorite Movies List</h1>
+        <input type="text" id="movie-input" placeholder="Enter a movie name">
+        <button id="add-movie-btn">Add Movie</button>
+        <ul id="movie-list"></ul>
+        <button class="clear" id="clear-list-btn">Clear List</button>
+        <p>Total Movies: <span id="movie-count">0</span></p>
+    </div>
+  <script>
+
+let movies = [];
+const movieInput = document.getElementById('movie-input');
+const addMovieBtn = document.getElementById('add-movie-btn');
+const movieList = document.getElementById('movie-list');
+const movieCount = document.getElementById('movie-count');
+const clearListBtn = document.getElementById('clear-list-btn');
+
+
+function renderMovieList() {   
+    movieList.innerHTML = '';       
+    movies.forEach((movie, index) => {
+        const li = document.createElement('li');
+        li.textContent = movie;
+        li.addEventListener('click', () => removeMovie(index));
+        movieList.appendChild(li);
+    });   
+    movieCount.textContent = movies.length;
+}
+function addMovie() {
+    const movieName = movieInput.value.trim();
+    
+    if (movieName === '') {
+        alert('Please enter a movie name');
+        return;
+    }    
+    movies.push(movieName);
+    movieInput.value = '';
+    renderMovieList();
+}
+
+function clearList() {
+    movies = [];
+    renderMovieList();
+}
+addMovieBtn.addEventListener('click', addMovie);
+clearListBtn.addEventListener('click', clearList);
+</script>
+</body>
+  
+</html>
